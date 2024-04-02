@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.VisualBasic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace API_Core_Project.Models
 {
@@ -9,7 +11,7 @@ namespace API_Core_Project.Models
 
         public int PatientId { get; set; }
 
-        public DateOnly date { get; set; }
+        public DateTime date { get; set; }
 
         public string? timeSlot { get; set; }
 

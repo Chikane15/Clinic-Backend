@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.VisualBasic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace API_Core_Project.Models
 {
@@ -20,6 +22,6 @@ namespace API_Core_Project.Models
         public decimal TotalCharge { get; set; }
 
         [Required]
-        public DateOnly? DateOfVisit { get; set; }
+        public DateTime DateOfVisit { get; set; }
     }
 }

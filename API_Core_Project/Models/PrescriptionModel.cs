@@ -8,5 +8,7 @@ namespace API_Core_Project.Models
         public int PriId { get; set; }
 
         public string? Medicine { get; set; }
+
+        public int PatientId{ get; set; }
     }
 }

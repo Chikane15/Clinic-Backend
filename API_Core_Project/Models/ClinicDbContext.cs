@@ -97,6 +97,9 @@ namespace API_Core_Project.Models
             .WithMany()
             .HasForeignKey(b => b.DoctorId);
 
+            modelBuilder.Entity<AppoinmentModel>()
+                .Property(a => a.date)
+                .IsRequired();
 
             base.OnModelCreating(modelBuilder);
         }

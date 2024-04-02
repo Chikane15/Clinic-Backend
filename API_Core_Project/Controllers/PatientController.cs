@@ -6,61 +6,62 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API_Core_Project.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
+   // [Authorize(Policy = "PatientPolicy")]
     public class PatientController : ControllerBase
     {
-        IDataRepositoy<PatientModel, int> patRepo;
-        IDataRepositoy<DoctorModel, int> docRepo;
+       
+        PatientOperationsRepository patOperationRepo;
 
-        public PatientController(IDataRepositoy<PatientModel, int> patRepo, IDataRepositoy<DoctorModel, int> docRepo)
+        public PatientController(PatientOperationsRepository patRepoRepository)
         {
-           this.patRepo = patRepo;
-            this.docRepo = docRepo;
-
+          
+            this.patOperationRepo = patRepoRepository;
         }
 
-        [HttpGet]
-        [Authorize(Policy = "GetPolicy")]
-        //[Authorize(Roles = "Manager,Clerk,Operator")]
 
-        async public Task<IActionResult> Get()
+        [HttpGet("{id}")]
+        [ActionName("GetAppoinments")]
+        
+
+        async public Task<IActionResult> GetApp(int id)
         {
-            var response = await patRepo.GetAsync();
+            var response = await patOperationRepo.GetAsyncAppoinment(id);
             return Ok(response);
         }
 
         [HttpGet("{id}")]
-        [Authorize(Policy = "GetPolicy")]
-
-        async public Task<IActionResult> Get(int id)
+        [ActionName("GetPatient")]
+        async public Task<IActionResult> GetPatient(int id)
         {
-            var response = await patRepo.GetAsync(id);
-            return Ok(response);
-        }
-        [HttpPost]
-        [Authorize(Policy = "PostPutPolicy")]
-        async public Task<IActionResult> Post(PatientModel patient)
-        {
-            var response = await patRepo.CreateAsync(patient);
+            var response = await patOperationRepo.GetAsyncPatientDetails(id);
             return Ok(response);
         }
 
-
-        [HttpPut("{id}")]
-        [Authorize(Policy = "PostPutPolicy")]
-        async public Task<IActionResult> Put(int id, PatientModel patient)
+        [HttpGet("{id}")]
+        [ActionName("GetReports")]
+        async public Task<IActionResult> GetReports(int id)
         {
-            var response = await patRepo.UpdateAsync(id, patient);
+            var response = await patOperationRepo.GetAsyncReports(id);
             return Ok(response);
         }
 
-
-        [HttpDelete("{id}")]
-        [Authorize(Policy = "DeletePolicy")]
-        async public Task<IActionResult> Delete(int id)
+        [HttpGet("{id}")]
+        [ActionName("GetBills")]
+        async public Task<IActionResult> GetBills(int id)
         {
-            var response = await patRepo.DeleteAsync(id);
+            var response = await patOperationRepo.GetAsyncBills(id);
+            return Ok(response);
+        }
+
+        [HttpGet("{id}")]
+        [ActionName("GetPrescription")]
+
+
+        async public Task<IActionResult> GetPres(int id)
+        {
+            var response = await patOperationRepo.GetAsyncPrescription(id);
             return Ok(response);
         }
     }

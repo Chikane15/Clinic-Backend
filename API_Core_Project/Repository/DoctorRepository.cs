@@ -128,7 +128,7 @@ namespace API_Core_Project.Repository
                
                 await ctx.SaveChangesAsync();
                 single.Record = rec;
-                single.Message = "Patient Record is updated successfully";
+                single.Message = "Doctor Record is updated successfully";
                 single.StatusCode = 200;
             }
             catch (Exception ex)

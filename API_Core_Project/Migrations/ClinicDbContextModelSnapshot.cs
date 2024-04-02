@@ -36,8 +36,8 @@ namespace API_Core_Project.Migrations
                     b.Property<int>("PatientId")
                         .HasColumnType("int");
 
-                    b.Property<DateOnly>("date")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("date")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("timeSlot")
                         .HasColumnType("nvarchar(max)");
@@ -62,9 +62,8 @@ namespace API_Core_Project.Migrations
                     b.Property<decimal>("ConsultingCharge")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<DateOnly?>("DateOfVisit")
-                        .IsRequired()
-                        .HasColumnType("date");
+                    b.Property<DateTime>("DateOfVisit")
+                        .HasColumnType("datetime2");
 
                     b.Property<decimal>("InsuranceCoverage")
                         .HasColumnType("decimal(18,2)");
@@ -143,8 +142,8 @@ namespace API_Core_Project.Migrations
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
 
-                    b.Property<DateOnly>("DOB")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("DOB")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
@@ -186,6 +185,9 @@ namespace API_Core_Project.Migrations
 
                     b.Property<string>("Medicine")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PatientId")
+                        .HasColumnType("int");
 
                     b.HasKey("PriId");
 
@@ -229,8 +231,8 @@ namespace API_Core_Project.Migrations
                     b.Property<int>("BillId")
                         .HasColumnType("int");
 
-                    b.Property<DateOnly>("DateofVisit")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("DateofVisit")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("DoctorId")
                         .HasColumnType("int");
@@ -244,8 +246,8 @@ namespace API_Core_Project.Migrations
                     b.Property<int>("ReportID")
                         .HasColumnType("int");
 
-                    b.Property<TimeOnly>("TimeSlot")
-                        .HasColumnType("time");
+                    b.Property<string>("TimeSlot")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("VId");
 

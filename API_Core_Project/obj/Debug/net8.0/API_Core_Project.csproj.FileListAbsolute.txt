@@ -282,3 +282,4 @@ C:\Users\DeepakChikane\OneDrive - Imriel Limited\Clinic Management System\API_Co
 C:\Users\DeepakChikane\OneDrive - Imriel Limited\Clinic Management System\API_Core_Project\obj\Debug\net8.0\API_Core_Project.pdb
 C:\Users\DeepakChikane\OneDrive - Imriel Limited\Clinic Management System\API_Core_Project\obj\Debug\net8.0\API_Core_Project.genruntimeconfig.cache
 C:\Users\DeepakChikane\OneDrive - Imriel Limited\Clinic Management System\API_Core_Project\obj\Debug\net8.0\ref\API_Core_Project.dll
+C:\Users\DeepakChikane\OneDrive - Imriel Limited\Clinic Management System\API_Core_Project\obj\Debug\net8.0\API_Core_Project.sourcelink.json

@@ -1,5 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.VisualBasic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection;
+using System.Security.AccessControl;
 
 namespace API_Core_Project.Models
 {
@@ -15,10 +19,9 @@ namespace API_Core_Project.Models
         [Required]
         [StringLength(50)]
         public string? LastName { get; set; }
-
         [Required]
-        [DataType(DataType.Date)]
-        public DateOnly DOB { get; set; }
+        
+        public DateTime DOB { get; set; }
 
         [StringLength(15)]
         public string? Contact { get; set; }
@@ -41,4 +44,6 @@ namespace API_Core_Project.Models
         [StringLength(50)]
         public string? Insurance { get; set; }
     }
+
+    
 }

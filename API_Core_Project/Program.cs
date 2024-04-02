@@ -33,9 +33,17 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkSto
 
 builder.Services.AddScoped<SecurityManagment>();
 
+builder.Services.AddScoped<DoctorOperationRepository>();
+builder.Services.AddScoped<PatientOperationsRepository>();
+
 builder.Services.AddScoped<IDataRepositoy<PatientModel, int>, PatientRepository>();
 builder.Services.AddScoped<IDataRepositoy<DoctorModel, int>, DoctorRepository>();
-
+builder.Services.AddScoped<IDataRepositoy<AppoinmentModel, int>, AppoinmentRepository>();
+builder.Services.AddScoped<IDataRepositoy<BillModel, int>, BillRepository>();
+builder.Services.AddScoped<IDataRepositoy<ReportModel, int>, ReportRepository>();
+builder.Services.AddScoped<IDataRepositoy<VisitModel, int>, VisitRepository>();
+builder.Services.AddScoped<IDataRepositoy<DoctorImconeModel, int>, DoctorIncomeRepository>();
+builder.Services.AddScoped<IDataRepositoy<PrescriptionModel, int>, PrescriptionRepository>();
 
 //Authentication with policies
 builder.Services.AddAuthorization(options =>
@@ -43,32 +51,24 @@ builder.Services.AddAuthorization(options =>
 
     var policyRoleSection = builder.Configuration.GetSection("PolicyRole");
 
-    var getPolicyRoles = policyRoleSection.GetValue<string>("GetPolicy")?.Split(',');
+    var getPolicyRoles = policyRoleSection.GetValue<string>("PatientPolicy")?.Split(',');
     if (getPolicyRoles != null && getPolicyRoles.Length > 0)
     {
-        options.AddPolicy("GetPolicy", policy =>
+        options.AddPolicy("PatientPolicy", policy =>
         {
             policy.RequireRole(getPolicyRoles);
         });
     }
 
-    var postPutPolicyRoles = policyRoleSection.GetValue<string>("PostPutPolicy")?.Split(',');
+    var postPutPolicyRoles = policyRoleSection.GetValue<string>("DoctorPolicy")?.Split(',');
     if (postPutPolicyRoles != null && postPutPolicyRoles.Length > 0)
     {
-        options.AddPolicy("PostPutPolicy", policy =>
+        options.AddPolicy("DoctorPolicy", policy =>
         {
             policy.RequireRole(postPutPolicyRoles);
         });
     }
-
-    var deletePolicyRoles = policyRoleSection.GetValue<string>("DeletePolicy")?.Split(',');
-    if (deletePolicyRoles != null && deletePolicyRoles.Length > 0)
-    {
-        options.AddPolicy("DeletePolicy", policy =>
-        {
-            policy.RequireRole(deletePolicyRoles);
-        });
-    }
+  
 
     var AdminPolicyRoles = policyRoleSection.GetValue<string>("AdminPolicy")?.Split(',');
     if (AdminPolicyRoles != null && AdminPolicyRoles.Length > 0)
@@ -85,6 +85,17 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("cors", builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -94,6 +105,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("cors");
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
