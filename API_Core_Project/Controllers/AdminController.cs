@@ -27,8 +27,8 @@ namespace API_Core_Project.Controllers
 
         [HttpGet]
         [ActionName("GetAppoinments")]
-        [Authorize(Policy = "AdminPolicy")]
-        //[Authorize(Roles = "Manager,Clerk,Operator")]
+/*        [Authorize(Policy = "AdminPolicy")]
+*/        //[Authorize(Roles = "Manager,Clerk,Operator")]
 
         async public Task<IActionResult> Get()
         {
@@ -38,8 +38,8 @@ namespace API_Core_Project.Controllers
 
         [HttpGet("{id}")]
         [ActionName("GetAppoinment")]
-        [Authorize(Policy = "AdminPolicy")]
-
+/*        [Authorize(Policy = "AdminPolicy")]
+*/
         async public Task<IActionResult> Get(int id)
         {
             var response = await appoinmentRepo.GetAsync(id);
@@ -47,8 +47,8 @@ namespace API_Core_Project.Controllers
         }
         [HttpPost]
         [ActionName("PostAppoinment")]
-        [Authorize(Policy = "AdminPolicy")]
-        async public Task<IActionResult> Post(AppoinmentModel app)
+/*        [Authorize(Policy = "AdminPolicy")]
+*/        async public Task<IActionResult> Post(AppoinmentModel app)
         {
             var response = await appoinmentRepo.CreateAsync(app);
             return Ok(response);
@@ -57,8 +57,8 @@ namespace API_Core_Project.Controllers
 
         [HttpPut("{id}")]
         [ActionName("PutAppoinment")]
-        [Authorize(Policy = "AdminPolicy")]
-        async public Task<IActionResult> Put(int id, AppoinmentModel app)
+/*        [Authorize(Policy = "AdminPolicy")]
+*/        async public Task<IActionResult> Put(int id, AppoinmentModel app)
         {
             var response = await appoinmentRepo.UpdateAsync(id, app);
             return Ok(response);
@@ -67,8 +67,8 @@ namespace API_Core_Project.Controllers
 
         [HttpDelete("{id}")]
         [ActionName("DeleteAppoinment")]
-        [Authorize(Policy = "AdminPolicy")]
-        async public Task<IActionResult> Delete(int id)
+/*        [Authorize(Policy = "AdminPolicy")]
+*/        async public Task<IActionResult> Delete(int id)
         {
             var response = await appoinmentRepo.DeleteAsync(id);
             return Ok(response);
@@ -76,8 +76,8 @@ namespace API_Core_Project.Controllers
 
         [HttpGet]
         [ActionName("GetDoctors")]
-        [Authorize(Policy = "AdminPolicy")]
-        //[Authorize(Roles = "Manager,Clerk,Operator")]
+/*        [Authorize(Policy = "AdminPolicy")]
+*/        //[Authorize(Roles = "Manager,Clerk,Operator")]
 
         async public Task<IActionResult> GetDocs()
         {
@@ -87,8 +87,8 @@ namespace API_Core_Project.Controllers
 
         [HttpGet("{id}")]
         [ActionName("GetDoctor")]
-        [Authorize(Policy = "AdminPolicy")]
-
+/*        [Authorize(Policy = "AdminPolicy")]
+*/
         async public Task<IActionResult> GetDoc(int id)
         {
             var response = await docRepo.GetAsync(id);
@@ -135,8 +135,8 @@ namespace API_Core_Project.Controllers
 
         [HttpGet("{id}")]
         [ActionName("GetPatient")]
-        [Authorize(Policy = "AdminPolicy")]
-
+/*        [Authorize(Policy = "AdminPolicy")]
+*/
         async public Task<IActionResult> GetPat(int id)
         {
             var response = await patRepo.GetAsync(id);
@@ -154,8 +154,8 @@ namespace API_Core_Project.Controllers
 
         [HttpPut("{id}")]
         [ActionName("PutPatient")]
-        [Authorize(Policy = "AdminPolicy")]
-        async public Task<IActionResult> PutPat(int id, PatientModel patient)
+/*        [Authorize(Policy = "AdminPolicy")]
+*/        async public Task<IActionResult> PutPat(int id, PatientModel patient)
         {
             var response = await patRepo.UpdateAsync(id, patient);
             return Ok(response);
@@ -164,8 +164,8 @@ namespace API_Core_Project.Controllers
 
         [HttpDelete("{id}")]
         [ActionName("DeletePatient")]
-        [Authorize(Policy = "AdminPolicy")]
-        async public Task<IActionResult> DeletePat(int id)
+/*        [Authorize(Policy = "AdminPolicy")]
+*/        async public Task<IActionResult> DeletePat(int id)
         {
             var response = await patRepo.DeleteAsync(id);
             return Ok(response);
