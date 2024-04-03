@@ -76,8 +76,8 @@ namespace API_Core_Project.Controllers
 
         [HttpGet]
         [ActionName("GetDoctors")]
+
         [Authorize(Policy = "AdminPolicy")]
-        //[Authorize(Roles = "Manager,Clerk,Operator")]
 
         async public Task<IActionResult> GetDocs()
         {
@@ -87,7 +87,7 @@ namespace API_Core_Project.Controllers
 
         [HttpGet("{id}")]
         [ActionName("GetDoctor")]
-        [Authorize(Policy = "AdminPolicy")]
+       // [Authorize(Policy = "AdminPolicy")]
 
         async public Task<IActionResult> GetDoc(int id)
         {
@@ -106,7 +106,7 @@ namespace API_Core_Project.Controllers
 
         [HttpPut("{id}")]
         [ActionName("PutDoctors")]
-        [Authorize(Policy = "AdminPolicy")]
+        //[Authorize(Policy = "AdminPolicy")]
         async public Task<IActionResult> PutDoc(int id, DoctorModel doctor)
         {
             var response = await docRepo.UpdateAsync(id, doctor);
@@ -115,8 +115,8 @@ namespace API_Core_Project.Controllers
 
 
         [HttpDelete("{id}")]
-        [ActionName("DeleteDoctors")]
-        [Authorize(Policy = "AdminPolicy")]
+       [ActionName("DeleteDoctors")]
+       // [Authorize(Policy = "AdminPolicy")]
         async public Task<IActionResult> DeleteDoc(int id)
         {
             var response = await docRepo.DeleteAsync(id);
