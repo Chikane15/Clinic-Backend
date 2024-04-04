@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace API_Core_Project.Migrations
+namespace API_Core_Project.Migrations.SecurityDb
 {
     [DbContext(typeof(SecurityDbContext))]
-    [Migration("20240404065032_securitymig")]
-    partial class securitymig
+    [Migration("20240329013136_SecurityMigration")]
+    partial class SecurityMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

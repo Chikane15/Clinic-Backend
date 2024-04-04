@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace API_Core_Project.Migrations
+namespace API_Core_Project.Migrations.SecurityDb
 {
     /// <inheritdoc />
-    public partial class securitymig : Migration
+    public partial class SecurityMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -28,10 +28,8 @@ namespace API_Core_Project.Controllers
         }
 
         [HttpGet]
-        [ActionName("GetReports")]
-
-        /*        [Authorize(Policy = "DoctorPolicy")]
-        */        //[Authorize(Roles = "Manager,Clerk,Operator")]
+        [Authorize(Policy = "DoctorPolicy")]
+        //[Authorize(Roles = "Manager,Clerk,Operator")]
 
         async public Task<IActionResult> GetReports()
         {
@@ -41,8 +39,8 @@ namespace API_Core_Project.Controllers
 
         [HttpGet("{id}")]
         [ActionName("GetReport")]
-/*        [Authorize(Policy = "DoctorPolicy")]
-*/
+        [Authorize(Policy = "DoctorPolicy")]
+
         async public Task<IActionResult> GetReport(int id)
         {
             var response = await reportRepo.GetAsync(id);
@@ -50,8 +48,8 @@ namespace API_Core_Project.Controllers
         }
         [HttpPost]
         [ActionName("PostReport")]
-/*        [Authorize(Policy = "DoctorPolicy")]
-*/        async public Task<IActionResult> PostReport(ReportModel app)
+        [Authorize(Policy = "DoctorPolicy")]
+        async public Task<IActionResult> PostReport(ReportModel app)
         {
             var response = await reportRepo.CreateAsync(app);
             return Ok(response);
@@ -60,8 +58,8 @@ namespace API_Core_Project.Controllers
 
         [HttpPut("{id}")]
         [ActionName("PutReport")]
-/*        [Authorize(Policy = "DoctorPolicy")]
-*/        async public Task<IActionResult> PutReport(int id, ReportModel app)
+        [Authorize(Policy = "DoctorPolicy")]
+        async public Task<IActionResult> PutReport(int id, ReportModel app)
         {
             var response = await reportRepo.UpdateAsync(id, app);
             return Ok(response);
@@ -70,8 +68,8 @@ namespace API_Core_Project.Controllers
 
         [HttpDelete("{id}")]
         [ActionName("DeleteReport")]
-/*        [Authorize(Policy = "DoctorPolicy")]
-*/        async public Task<IActionResult> DeleteReport(int id)
+        [Authorize(Policy = "DoctorPolicy")]
+        async public Task<IActionResult> DeleteReport(int id)
         {
             var response = await reportRepo.DeleteAsync(id);
             return Ok(response);
