@@ -15,9 +15,10 @@ namespace API_Core_Project.Controllers
         IDataRepositoy<AppoinmentModel, int> appoinmentRepo;
         IDataRepositoy<ReportModel, int> reportRepo;
         IDataRepositoy<PrescriptionModel, int> prescriptionRepo;
+        IDataRepositoy<BillModel, int> billRepo;
         DoctorOperationRepository doctorOperationRepository;
 
-        public DoctorController(IDataRepositoy<PatientModel, int> patRepo, IDataRepositoy<DoctorModel, int> docRepo,IDataRepositoy<AppoinmentModel,int> appRepo,IDataRepositoy<ReportModel,int> reportRepo, IDataRepositoy<PrescriptionModel, int> prescriptionRepo, DoctorOperationRepository dop)
+        public DoctorController(IDataRepositoy<PatientModel, int> patRepo, IDataRepositoy<DoctorModel, int> docRepo,IDataRepositoy<AppoinmentModel,int> appRepo,IDataRepositoy<ReportModel,int> reportRepo, IDataRepositoy<PrescriptionModel, int> prescriptionRepo, DoctorOperationRepository dop, IDataRepositoy<BillModel, int> billRepo)
         {
             this.patRepo = patRepo;
             this.docRepo = docRepo;
@@ -25,6 +26,7 @@ namespace API_Core_Project.Controllers
             this.reportRepo = reportRepo;
             this.prescriptionRepo = prescriptionRepo;
             this.doctorOperationRepository = dop;
+            this.billRepo = billRepo;
         }
 
         [HttpGet]
@@ -39,7 +41,7 @@ namespace API_Core_Project.Controllers
 
         [HttpGet("{id}")]
         [ActionName("GetReport")]
-        [Authorize(Policy = "DoctorPolicy")]
+        //[Authorize(Policy = "DoctorPolicy")]
 
         async public Task<IActionResult> GetReport(int id)
         {
@@ -48,7 +50,7 @@ namespace API_Core_Project.Controllers
         }
         [HttpPost]
         [ActionName("PostReport")]
-        [Authorize(Policy = "DoctorPolicy")]
+        //[Authorize(Policy = "DoctorPolicy")]
         async public Task<IActionResult> PostReport(ReportModel app)
         {
             var response = await reportRepo.CreateAsync(app);
@@ -58,7 +60,7 @@ namespace API_Core_Project.Controllers
 
         [HttpPut("{id}")]
         [ActionName("PutReport")]
-        [Authorize(Policy = "DoctorPolicy")]
+        //[Authorize(Policy = "DoctorPolicy")]
         async public Task<IActionResult> PutReport(int id, ReportModel app)
         {
             var response = await reportRepo.UpdateAsync(id, app);
@@ -68,7 +70,7 @@ namespace API_Core_Project.Controllers
 
         [HttpDelete("{id}")]
         [ActionName("DeleteReport")]
-        [Authorize(Policy = "DoctorPolicy")]
+        //[Authorize(Policy = "DoctorPolicy")]
         async public Task<IActionResult> DeleteReport(int id)
         {
             var response = await reportRepo.DeleteAsync(id);
@@ -77,7 +79,7 @@ namespace API_Core_Project.Controllers
 
         [HttpGet]
         [ActionName("GetPres")]
-        [Authorize(Policy = "DoctorPolicy")]
+        //[Authorize(Policy = "DoctorPolicy")]
         //[Authorize(Roles = "Manager,Clerk,Operator")]
 
         async public Task<IActionResult> GetPres()
@@ -88,7 +90,7 @@ namespace API_Core_Project.Controllers
 
         [HttpGet("{id}")]
         [ActionName("GetPre")]
-        [Authorize(Policy = "DoctorPolicy")]
+        //[Authorize(Policy = "DoctorPolicy")]
 
         async public Task<IActionResult> Getpre(int id)
         {
@@ -97,7 +99,7 @@ namespace API_Core_Project.Controllers
         }
         [HttpPost]
         [ActionName("PostPre")]
-        [Authorize(Policy = "DoctorPolicy")]
+        //[Authorize(Policy = "DoctorPolicy")]
         async public Task<IActionResult> PostPre(PrescriptionModel app)
         {
             var response = await prescriptionRepo.CreateAsync(app);
@@ -107,7 +109,7 @@ namespace API_Core_Project.Controllers
 
         [HttpPut("{id}")]
         [ActionName("PutPre")]
-        [Authorize(Policy = "DoctorPolicy")]
+        //[Authorize(Policy = "DoctorPolicy")]
         async public Task<IActionResult> PutPre(int id, PrescriptionModel app)
         {
             var response = await prescriptionRepo.UpdateAsync(id, app);
@@ -117,7 +119,7 @@ namespace API_Core_Project.Controllers
 
         [HttpDelete("{id}")]
         [ActionName("DeletePre")]
-        [Authorize(Policy = "DoctorPolicy")]
+        //[Authorize(Policy = "DoctorPolicy")]
         async public Task<IActionResult> DeletePre(int id)
         {
             var response = await prescriptionRepo.DeleteAsync(id);
@@ -137,7 +139,7 @@ namespace API_Core_Project.Controllers
 
         [HttpGet("{id}")]
         [ActionName("GetVisits")]
-        [Authorize(Policy = "DoctorPolicy")]
+        //[Authorize(Policy = "DoctorPolicy")]
 
         async public Task<IActionResult> GetVisits(int id)
         {
@@ -147,11 +149,31 @@ namespace API_Core_Project.Controllers
 
         [HttpGet("{id}")]
         [ActionName("GetIncomeDetials")]
-        [Authorize(Policy = "DoctorPolicy")]
+        //[Authorize(Policy = "DoctorPolicy")]
 
         async public Task<IActionResult> GetIncomeDetails(int id)
         {
             var response = await doctorOperationRepository.GetAsyncIcomeDetails(id);
+            return Ok(response);
+        }
+
+        [HttpPost]
+        [ActionName("PostBill")]
+        //[Authorize(Policy = "DoctorPolicy")]
+        async public Task<IActionResult> PostBill(BillModel app)
+        {
+            var response = await billRepo.CreateAsync(app);
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [ActionName("GetBills")]
+        // [Authorize(Policy = "DoctorPolicy")]
+        //[Authorize(Roles = "Manager,Clerk,Operator")]
+
+        async public Task<IActionResult> GetBills()
+        {
+            var response = await billRepo.GetAsync();
             return Ok(response);
         }
     }

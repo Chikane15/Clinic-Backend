@@ -125,6 +125,8 @@ namespace API_Core_Project.Repository
                 rec.FirstName = entity.FirstName;
                 rec.LastName = entity.LastName;
                 rec.Speciality = entity.Speciality;
+                rec.Email = entity.Email;
+                rec.Salary = entity.Salary;
                
                 await ctx.SaveChangesAsync();
                 single.Record = rec;
