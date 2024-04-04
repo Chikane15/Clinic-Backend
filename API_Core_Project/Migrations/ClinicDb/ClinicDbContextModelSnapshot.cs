@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace API_Core_Project.Migrations
+namespace API_Core_Project.Migrations.ClinicDb
 {
     [DbContext(typeof(ClinicDbContext))]
     partial class ClinicDbContextModelSnapshot : ModelSnapshot
@@ -102,6 +102,11 @@ namespace API_Core_Project.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DoctorID"));
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -111,6 +116,9 @@ namespace API_Core_Project.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("Salary")
+                        .HasColumnType("int");
 
                     b.Property<string>("Speciality")
                         .IsRequired()

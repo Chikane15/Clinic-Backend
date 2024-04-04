@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace API_Core_Project.Migrations.SecurityDb
+namespace API_Core_Project.Migrations
 {
     [DbContext(typeof(SecurityDbContext))]
     partial class SecurityDbContextModelSnapshot : ModelSnapshot
