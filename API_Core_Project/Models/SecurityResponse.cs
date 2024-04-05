@@ -9,5 +9,7 @@
         public bool IsLoggedIn { get; set; } = false;
 
         public string? roles { get; set; }
+
+        public string? userId { get; set; }
     }
 }

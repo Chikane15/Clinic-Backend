@@ -1,5 +1,7 @@
 ﻿using API_Core_Project.Models;
+using API_Core_Project.Repository;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -12,15 +14,20 @@ namespace API_Core_Project.Customization.Security
         UserManager<IdentityUser> userManager;//Used to Create and Manage Application Users
         SignInManager<IdentityUser> signInManager;//Used to Manage the User SignIn w.r.t. the application
         RoleManager<IdentityRole> roleManager;//Used to assign role
+        IDataRepositoy<DoctorModel, int> docRepo;
+        ClinicDbContext ctx;
+
         IConfiguration config;//To configure from appsetting.json
 
-        public SecurityManagment(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration)
+        public SecurityManagment(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager,
+            RoleManager<IdentityRole> roleManager, IConfiguration configuration, IDataRepositoy<DoctorModel, int> docRepo, ClinicDbContext ctx)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.roleManager = roleManager;
             this.config = configuration;
-            
+            this.docRepo = docRepo;
+            this.ctx = ctx;
         }
 
         public async Task<bool> RegisterUserAsync(AppUser user)
@@ -54,7 +61,8 @@ namespace API_Core_Project.Customization.Security
                     UserName = user.Email
                 };
                 // 2.b. Create the user
-                var result = await userManager.CreateAsync(newUser, user.Password);
+                //var result = await userManager.CreateAsync(newUser, user.Password);
+                var result= await userManager.CreateAsync(newUser,user.ConfirmPassowrd);
                 if (result.Succeeded)
                 {
                     isUserCreated = true;
@@ -107,6 +115,30 @@ namespace API_Core_Project.Customization.Security
                     // get the user object based on Email
                     var user1 = await userManager.FindByEmailAsync(user.Email);
                     var role = await userManager.GetRolesAsync(user1);
+
+                    string userId = "";
+
+                    if (role.Contains("Doctor"))
+                    {
+                        var doctor = await ctx.Doctors.FirstOrDefaultAsync(d => d.Email == user.Email);
+                        if (doctor == null)
+                            throw new Exception($"Doctor with Email {user.Email} not found");
+
+                        userId = doctor.DoctorID.ToString();
+                    }
+                    else if (role.Contains("Patient"))
+                    {
+                        var patient = await ctx.Patients.FirstOrDefaultAsync(p => p.Email == user.Email);
+                        if (patient == null)
+                            throw new Exception($"Patient with Email {user.Email} not found");
+
+                        userId = patient.PatientID.ToString();
+                    }
+                    else if (role.Contains("Administrator"))
+                    {
+                        userId = "";
+                    }
+
                     //
                     //Here to add for assignmnet
                     //
@@ -126,7 +158,9 @@ namespace API_Core_Project.Customization.Security
                         Subject = new System.Security.Claims.ClaimsIdentity(new List<Claim>() {
                             new Claim("username", idUser.Id),
                             //Addition for assignment
-                            new Claim("role",role[0])
+                            new Claim("role",role[0]),
+                            new Claim("userId", userId)
+
 
                         }),
                         Expires = DateTime.UtcNow.AddMinutes(expiry),
@@ -145,12 +179,15 @@ namespace API_Core_Project.Customization.Security
 
                     // for fetching the role from Claim
                     var roleName = jtwTokne.Claims.Take(2).Last().Value;
+                    var id  = jtwTokne.Claims.FirstOrDefault(c => c.Type == "userId")?.Value;
 
                     // 3.d.2.Write the Token in the JSON Web Token Format as string 
                     response.Token = jwtHandler.WriteToken(jtwTokne);
+                   
 
                     //for storing the role from claim into response.roles
                     response.roles = roleName;
+                    response.userId = id;
 
                     response.IsLoggedIn = true;
                 }

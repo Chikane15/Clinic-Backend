@@ -30,7 +30,7 @@ namespace API_Core_Project.Controllers
         }
 
         [HttpGet]
-        [Authorize(Policy = "DoctorPolicy")]
+       // [Authorize(Policy = "DoctorPolicy")]
         //[Authorize(Roles = "Manager,Clerk,Operator")]
 
         async public Task<IActionResult> GetReports()
@@ -128,7 +128,7 @@ namespace API_Core_Project.Controllers
 
         [HttpGet("{id}")]
         [ActionName("GetAppoinment")]
-        [Authorize(Policy = "DoctorPolicy")]
+      //  [Authorize(Policy = "DoctorPolicy")]
         //[Authorize(Roles = "Manager,Clerk,Operator")]
 
         async public Task<IActionResult> GetAppoinments(int id)

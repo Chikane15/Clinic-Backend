@@ -29,7 +29,7 @@ namespace API_Core_Project.Controllers
 
         [HttpGet]
         [ActionName("GetAppoinments")]
-        [Authorize(Policy = "AdminPolicy")]
+       // [Authorize(Policy = "AdminPolicy")]
         //[Authorize(Roles = "Manager,Clerk,Operator")]
 
         async public Task<IActionResult> Get()
@@ -40,7 +40,7 @@ namespace API_Core_Project.Controllers
 
         [HttpGet("{id}")]
         [ActionName("GetAppoinment")]
-        [Authorize(Policy = "AdminPolicy")]
+        //[Authorize(Policy = "AdminPolicy")]
 
         async public Task<IActionResult> Get(int id)
         {
@@ -59,7 +59,7 @@ namespace API_Core_Project.Controllers
 
         [HttpPut("{id}")]
         [ActionName("PutAppoinment")]
-        [Authorize(Policy = "AdminPolicy")]
+      //  [Authorize(Policy = "AdminPolicy")]
         async public Task<IActionResult> Put(int id, AppoinmentModel app)
         {
             var response = await appoinmentRepo.UpdateAsync(id, app);
@@ -69,7 +69,7 @@ namespace API_Core_Project.Controllers
 
         [HttpDelete("{id}")]
         [ActionName("DeleteAppoinment")]
-        [Authorize(Policy = "AdminPolicy")]
+      //  [Authorize(Policy = "AdminPolicy")]
         async public Task<IActionResult> Delete(int id)
         {
             var response = await appoinmentRepo.DeleteAsync(id);
@@ -98,7 +98,7 @@ namespace API_Core_Project.Controllers
         }
         [HttpPost]
         [ActionName("PostDoctors")]
-        [Authorize(Policy = "AdminPolicy")]
+      //  [Authorize(Policy = "AdminPolicy")]
         async public Task<IActionResult> PostDoc(DoctorModel doctor)
         {
             var response = await docRepo.CreateAsync(doctor);
@@ -137,7 +137,7 @@ namespace API_Core_Project.Controllers
 
         [HttpGet("{id}")]
         [ActionName("GetPatient")]
-        [Authorize(Policy = "AdminPolicy")]
+       // [Authorize(Policy = "AdminPolicy")]
 
         async public Task<IActionResult> GetPat(int id)
         {
@@ -156,7 +156,7 @@ namespace API_Core_Project.Controllers
 
         [HttpPut("{id}")]
         [ActionName("PutPatient")]
-        [Authorize(Policy = "AdminPolicy")]
+       // [Authorize(Policy = "AdminPolicy")]
         async public Task<IActionResult> PutPat(int id, PatientModel patient)
         {
             var response = await patRepo.UpdateAsync(id, patient);
@@ -166,7 +166,7 @@ namespace API_Core_Project.Controllers
 
         [HttpDelete("{id}")]
         [ActionName("DeletePatient")]
-        [Authorize(Policy = "AdminPolicy")]
+       // [Authorize(Policy = "AdminPolicy")]
         async public Task<IActionResult> DeletePat(int id)
         {
             var response = await patRepo.DeleteAsync(id);
@@ -176,7 +176,7 @@ namespace API_Core_Project.Controllers
 
         [HttpGet]
         [ActionName("GetDIs")]
-        [Authorize(Policy = "AdminPolicy")]
+       // [Authorize(Policy = "AdminPolicy")]
         //[Authorize(Roles = "Manager,Clerk,Operator")]
 
         async public Task<IActionResult> GetDIs()
@@ -187,7 +187,7 @@ namespace API_Core_Project.Controllers
 
         [HttpGet("{id}")]
         [ActionName("GetDI")]
-        [Authorize(Policy = "AdminPolicy")]
+       // [Authorize(Policy = "AdminPolicy")]
 
         async public Task<IActionResult> GetDI(int id)
         {
@@ -196,7 +196,7 @@ namespace API_Core_Project.Controllers
         }
         [HttpPost]
         [ActionName("PostDI")]
-        [Authorize(Policy = "AdminPolicy")]
+       // [Authorize(Policy = "AdminPolicy")]
         async public Task<IActionResult> PostDI(DoctorImconeModel di)
         {
             var response = await docImconeRepo.CreateAsync(di);
@@ -205,7 +205,7 @@ namespace API_Core_Project.Controllers
 
         [HttpPut("{id}")]
         [ActionName("PutDI")]
-        [Authorize(Policy = "AdminPolicy")]
+       // [Authorize(Policy = "AdminPolicy")]
         async public Task<IActionResult> PutDI(int id, DoctorImconeModel di)
         {
             var response = await docImconeRepo.UpdateAsync(id, di);
@@ -215,7 +215,7 @@ namespace API_Core_Project.Controllers
 
         [HttpGet]
         [ActionName("GetVisits")]
-        [Authorize(Policy = "AdminPolicy")]
+       // [Authorize(Policy = "AdminPolicy")]
         //[Authorize(Roles = "Manager,Clerk,Operator")]
 
         async public Task<IActionResult> GetVisits()
@@ -226,7 +226,7 @@ namespace API_Core_Project.Controllers
 
         [HttpGet("{id}")]
         [ActionName("GetVisit")]
-        [Authorize(Policy = "AdminPolicy")]
+       // [Authorize(Policy = "AdminPolicy")]
 
         async public Task<IActionResult> GetVisit(int id)
         {
