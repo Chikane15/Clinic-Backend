@@ -49,8 +49,8 @@ namespace API_Core_Project.Controllers
         }
         [HttpPost]
         [ActionName("PostAppoinment")]
-/*        [Authorize(Policy = "AdminPolicy")]
-*/        async public Task<IActionResult> Post(AppoinmentModel app)
+        [Authorize(Policy = "AdminPolicy")]
+        async public Task<IActionResult> Post(AppoinmentModel app)
         {
             var response = await appoinmentRepo.CreateAsync(app);
             return Ok(response);
@@ -80,6 +80,8 @@ namespace API_Core_Project.Controllers
         [ActionName("GetDoctors")]
 /*        [Authorize(Policy = "AdminPolicy")]
 */        //[Authorize(Roles = "Manager,Clerk,Operator")]
+
+        [Authorize(Policy = "AdminPolicy")]
 
         async public Task<IActionResult> GetDocs()
         {

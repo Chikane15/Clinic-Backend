@@ -15,11 +15,9 @@ namespace API_Core_Project.Controllers
         IDataRepositoy<AppoinmentModel, int> appoinmentRepo;
         IDataRepositoy<ReportModel, int> reportRepo;
         IDataRepositoy<PrescriptionModel, int> prescriptionRepo;
-        IDataRepositoy<BillModel, int> billRepo;
-        IDataRepositoy<VisitModel, int> visitRepo;
         DoctorOperationRepository doctorOperationRepository;
 
-        public DoctorController(IDataRepositoy<PatientModel, int> patRepo, IDataRepositoy<DoctorModel, int> docRepo,IDataRepositoy<AppoinmentModel,int> appRepo,IDataRepositoy<ReportModel,int> reportRepo, IDataRepositoy<PrescriptionModel, int> prescriptionRepo, DoctorOperationRepository dop, IDataRepositoy<BillModel, int> billRepo, IDataRepositoy<VisitModel, int> visitRepo)
+        public DoctorController(IDataRepositoy<PatientModel, int> patRepo, IDataRepositoy<DoctorModel, int> docRepo,IDataRepositoy<AppoinmentModel,int> appRepo,IDataRepositoy<ReportModel,int> reportRepo, IDataRepositoy<PrescriptionModel, int> prescriptionRepo, DoctorOperationRepository dop)
         {
             this.patRepo = patRepo;
             this.docRepo = docRepo;
@@ -27,8 +25,6 @@ namespace API_Core_Project.Controllers
             this.reportRepo = reportRepo;
             this.prescriptionRepo = prescriptionRepo;
             this.doctorOperationRepository = dop;
-            this.billRepo = billRepo;
-            this.visitRepo = visitRepo;
         }
 
         [HttpGet]
@@ -156,35 +152,6 @@ namespace API_Core_Project.Controllers
         async public Task<IActionResult> GetIncomeDetails(int id)
         {
             var response = await doctorOperationRepository.GetAsyncIcomeDetails(id);
-            return Ok(response);
-        }
-
-        [HttpPost]
-        [ActionName("PostBill")]
-        //[Authorize(Policy = "DoctorPolicy")]
-        async public Task<IActionResult> PostBill(BillModel app)
-        {
-            var response = await billRepo.CreateAsync(app);
-            return Ok(response);
-        }
-
-        [HttpGet]
-        [ActionName("GetBills")]
-        // [Authorize(Policy = "DoctorPolicy")]
-        //[Authorize(Roles = "Manager,Clerk,Operator")]
-
-        async public Task<IActionResult> GetBills()
-        {
-            var response = await billRepo.GetAsync();
-            return Ok(response);
-        }
-
-        [HttpPost]
-        [ActionName("PostVisit")]
-        //[Authorize(Policy = "DoctorPolicy")]
-        async public Task<IActionResult> PostVisit(VisitModel app)
-        {
-            var response = await visitRepo.CreateAsync(app);
             return Ok(response);
         }
     }
