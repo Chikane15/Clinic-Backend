@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API_Core_Project.Migrations
 {
     [DbContext(typeof(ClinicDbContext))]
-    [Migration("20240404133048_clinicmig")]
+    [Migration("20240405052148_clinicmig")]
     partial class clinicmig
     {
         /// <inheritdoc />
@@ -274,10 +274,10 @@ namespace API_Core_Project.Migrations
 
             modelBuilder.Entity("API_Core_Project.Models.AppoinmentModel", b =>
                 {
-                    b.HasOne("API_Core_Project.Models.PatientModel", null)
+                    b.HasOne("API_Core_Project.Models.DoctorModel", null)
                         .WithMany()
                         .HasForeignKey("DoctorId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("API_Core_Project.Models.PatientModel", null)
@@ -319,13 +319,13 @@ namespace API_Core_Project.Migrations
                     b.HasOne("API_Core_Project.Models.DoctorModel", null)
                         .WithMany()
                         .HasForeignKey("DId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("API_Core_Project.Models.PatientModel", null)
                         .WithMany()
                         .HasForeignKey("PatientID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 

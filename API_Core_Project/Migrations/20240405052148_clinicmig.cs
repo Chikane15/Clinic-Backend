@@ -104,11 +104,11 @@ namespace API_Core_Project.Migrations
                 {
                     table.PrimaryKey("PK_Appoinments", x => x.AppoinmentId);
                     table.ForeignKey(
-                        name: "FK_Appoinments_Patients_DoctorId",
+                        name: "FK_Appoinments_Doctors_DoctorId",
                         column: x => x.DoctorId,
-                        principalTable: "Patients",
-                        principalColumn: "PatientID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalTable: "Doctors",
+                        principalColumn: "DoctorID",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Appoinments_Patients_PatientId",
                         column: x => x.PatientId,
@@ -158,13 +158,13 @@ namespace API_Core_Project.Migrations
                         column: x => x.DId,
                         principalTable: "Doctors",
                         principalColumn: "DoctorID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Reports_Patients_PatientID",
                         column: x => x.PatientID,
                         principalTable: "Patients",
                         principalColumn: "PatientID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(

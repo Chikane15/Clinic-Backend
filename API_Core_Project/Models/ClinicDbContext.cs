@@ -65,12 +65,14 @@ namespace API_Core_Project.Models
             modelBuilder.Entity<ReportModel>()
               .HasOne<PatientModel>()
               .WithMany()
-              .HasForeignKey(r => r.PatientID);
+              .HasForeignKey(r => r.PatientID)
+              .OnDelete(DeleteBehavior.Restrict); ;
 
             modelBuilder.Entity<ReportModel>()
              .HasOne<DoctorModel>()
              .WithMany()
-             .HasForeignKey(r => r.DId);
+             .HasForeignKey(r => r.DId)
+             .OnDelete(DeleteBehavior.Restrict); ;
 
             modelBuilder.Entity<BillModel>()
              .HasOne<PatientModel>()
@@ -89,9 +91,11 @@ namespace API_Core_Project.Models
              .OnDelete(DeleteBehavior.Restrict);//Patient should not be delete if its Appoinment is there
 
             modelBuilder.Entity<AppoinmentModel>()
-            .HasOne<PatientModel>()
-            .WithMany()
-            .HasForeignKey(b => b.DoctorId);
+             .HasOne<DoctorModel>()
+             .WithMany()
+             .HasForeignKey(b => b.DoctorId)
+             .OnDelete(DeleteBehavior.Restrict);
+
 
             modelBuilder.Entity<PrescriptionModel>()
                .HasOne<DoctorModel>()

@@ -15,9 +15,12 @@ namespace API_Core_Project.Controllers
         IDataRepositoy<AppoinmentModel, int> appoinmentRepo;
         IDataRepositoy<ReportModel, int> reportRepo;
         IDataRepositoy<PrescriptionModel, int> prescriptionRepo;
+        IDataRepositoy<VisitModel, int> visitRepo;
         DoctorOperationRepository doctorOperationRepository;
 
-        public DoctorController(IDataRepositoy<PatientModel, int> patRepo, IDataRepositoy<DoctorModel, int> docRepo,IDataRepositoy<AppoinmentModel,int> appRepo,IDataRepositoy<ReportModel,int> reportRepo, IDataRepositoy<PrescriptionModel, int> prescriptionRepo, DoctorOperationRepository dop)
+        public DoctorController(IDataRepositoy<PatientModel, int> patRepo, IDataRepositoy<DoctorModel, int> docRepo,
+            IDataRepositoy<AppoinmentModel,int> appRepo,IDataRepositoy<ReportModel,int> reportRepo,
+            IDataRepositoy<PrescriptionModel, int> prescriptionRepo, DoctorOperationRepository dop, IDataRepositoy<VisitModel, int> visitRepo)
         {
             this.patRepo = patRepo;
             this.docRepo = docRepo;
@@ -25,6 +28,7 @@ namespace API_Core_Project.Controllers
             this.reportRepo = reportRepo;
             this.prescriptionRepo = prescriptionRepo;
             this.doctorOperationRepository = dop;
+            this.visitRepo = visitRepo;
         }
 
         [HttpGet]
@@ -144,6 +148,17 @@ namespace API_Core_Project.Controllers
             var response = await doctorOperationRepository.GetAsyncVisits(id);
             return Ok(response);
         }
+
+        [HttpPost]
+        [ActionName("PostVisit")]
+        //[Authorize(Policy = "DoctorPolicy")]
+        async public Task<IActionResult> PostVisit(VisitModel app)
+        {
+            var response = await visitRepo.CreateAsync(app);
+            return Ok(response);
+        }
+
+
 
         [HttpGet("{id}")]
         [ActionName("GetIncomeDetials")]
