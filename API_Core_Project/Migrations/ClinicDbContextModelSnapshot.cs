@@ -102,6 +102,11 @@ namespace API_Core_Project.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DoctorID"));
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -111,6 +116,9 @@ namespace API_Core_Project.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("Salary")
+                        .HasColumnType("int");
 
                     b.Property<string>("Speciality")
                         .IsRequired()
@@ -183,6 +191,9 @@ namespace API_Core_Project.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PriId"));
 
+                    b.Property<int>("DocId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Medicine")
                         .HasColumnType("nvarchar(max)");
 
@@ -190,6 +201,8 @@ namespace API_Core_Project.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("PriId");
+
+                    b.HasIndex("DocId");
 
                     b.ToTable("Prescriptions");
                 });
@@ -240,14 +253,8 @@ namespace API_Core_Project.Migrations
                     b.Property<int>("PId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PriId")
-                        .HasColumnType("int");
-
                     b.Property<int>("ReportID")
                         .HasColumnType("int");
-
-                    b.Property<string>("TimeSlot")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("VId");
 
@@ -256,8 +263,6 @@ namespace API_Core_Project.Migrations
                     b.HasIndex("DoctorId");
 
                     b.HasIndex("PId");
-
-                    b.HasIndex("PriId");
 
                     b.HasIndex("ReportID");
 
@@ -297,6 +302,15 @@ namespace API_Core_Project.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("API_Core_Project.Models.PrescriptionModel", b =>
+                {
+                    b.HasOne("API_Core_Project.Models.DoctorModel", null)
+                        .WithMany()
+                        .HasForeignKey("DocId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("API_Core_Project.Models.ReportModel", b =>
                 {
                     b.HasOne("API_Core_Project.Models.DoctorModel", null)
@@ -329,12 +343,6 @@ namespace API_Core_Project.Migrations
                     b.HasOne("API_Core_Project.Models.PatientModel", null)
                         .WithMany()
                         .HasForeignKey("PId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("API_Core_Project.Models.PrescriptionModel", null)
-                        .WithMany()
-                        .HasForeignKey("PriId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 

@@ -59,11 +59,7 @@ namespace API_Core_Project.Models
                .HasForeignKey(v => v.ReportID)
                .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<VisitModel>()
-               .HasOne<PrescriptionModel>()
-               .WithMany()
-               .HasForeignKey(v => v.PriId)
-               .OnDelete(DeleteBehavior.Restrict);
+            
 
 
             modelBuilder.Entity<ReportModel>()
@@ -96,6 +92,12 @@ namespace API_Core_Project.Models
             .HasOne<PatientModel>()
             .WithMany()
             .HasForeignKey(b => b.DoctorId);
+
+            modelBuilder.Entity<PrescriptionModel>()
+               .HasOne<DoctorModel>()
+               .WithMany()
+               .HasForeignKey(v => v.DocId)
+               .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<AppoinmentModel>()
                 .Property(a => a.date)

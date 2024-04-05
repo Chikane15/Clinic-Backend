@@ -9,5 +9,13 @@
         public bool IsLoggedIn { get; set; } = false;
 
         public string? roles { get; set; }
+
+        public AppUser AppUser { get; set; }
+
+        public UserRole UserRole { get; set; }
+
+        public LoginUser LoginUser { get; set; }
+
+        public RoleInfo RoleInfo { get; set; }
     }
 }

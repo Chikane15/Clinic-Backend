@@ -15,14 +15,16 @@ namespace API_Core_Project.Controllers
         IDataRepositoy<AppoinmentModel, int> appoinmentRepo;
         IDataRepositoy<DoctorImconeModel, int> docImconeRepo;
         IDataRepositoy<VisitModel, int> visitRepo;
+        IDataRepositoy<BillModel, int> billRepo;
 
-        public AdminController(IDataRepositoy<PatientModel, int> patRepo, IDataRepositoy<DoctorModel, int> docRepo, IDataRepositoy<AppoinmentModel, int> appoinmentRepo, IDataRepositoy<DoctorImconeModel, int> docImconeRepo, IDataRepositoy<VisitModel, int> visitRepo)
+        public AdminController(IDataRepositoy<PatientModel, int> patRepo, IDataRepositoy<DoctorModel, int> docRepo, IDataRepositoy<AppoinmentModel, int> appoinmentRepo, IDataRepositoy<DoctorImconeModel, int> docImconeRepo, IDataRepositoy<VisitModel, int> visitRepo, IDataRepositoy<BillModel, int> billRepo)
         {
             this.patRepo = patRepo;
             this.docRepo = docRepo;
             this.appoinmentRepo = appoinmentRepo;
             this.docImconeRepo = docImconeRepo;
             this.visitRepo = visitRepo;
+            this.billRepo = billRepo;
         }
 
         [HttpGet]
@@ -96,8 +98,8 @@ namespace API_Core_Project.Controllers
         }
         [HttpPost]
         [ActionName("PostDoctors")]
-        [Authorize(Policy = "AdminPolicy")]
-        async public Task<IActionResult> PostDoc(DoctorModel doctor)
+/*        [Authorize(Policy = "AdminPolicy")]
+*/        async public Task<IActionResult> PostDoc(DoctorModel doctor)
         {
             var response = await docRepo.CreateAsync(doctor);
             return Ok(response);
@@ -106,8 +108,8 @@ namespace API_Core_Project.Controllers
 
         [HttpPut("{id}")]
         [ActionName("PutDoctors")]
-        [Authorize(Policy = "AdminPolicy")]
-        async public Task<IActionResult> PutDoc(int id, DoctorModel doctor)
+/*        [Authorize(Policy = "AdminPolicy")]
+*/        async public Task<IActionResult> PutDoc(int id, DoctorModel doctor)
         {
             var response = await docRepo.UpdateAsync(id, doctor);
             return Ok(response);
@@ -116,8 +118,8 @@ namespace API_Core_Project.Controllers
 
         [HttpDelete("{id}")]
         [ActionName("DeleteDoctors")]
-        [Authorize(Policy = "AdminPolicy")]
-        async public Task<IActionResult> DeleteDoc(int id)
+/*        [Authorize(Policy = "AdminPolicy")]
+*/        async public Task<IActionResult> DeleteDoc(int id)
         {
             var response = await docRepo.DeleteAsync(id);
             return Ok(response);
@@ -185,8 +187,8 @@ namespace API_Core_Project.Controllers
 
         [HttpGet("{id}")]
         [ActionName("GetDI")]
-        [Authorize(Policy = "AdminPolicy")]
-
+/*        [Authorize(Policy = "AdminPolicy")]
+*/
         async public Task<IActionResult> GetDI(int id)
         {
             var response = await docImconeRepo.GetAsync(id);
@@ -194,8 +196,8 @@ namespace API_Core_Project.Controllers
         }
         [HttpPost]
         [ActionName("PostDI")]
-        [Authorize(Policy = "AdminPolicy")]
-        async public Task<IActionResult> PostDI(DoctorImconeModel di)
+/*        [Authorize(Policy = "AdminPolicy")]
+*/        async public Task<IActionResult> PostDI(DoctorImconeModel di)
         {
             var response = await docImconeRepo.CreateAsync(di);
             return Ok(response);
@@ -203,8 +205,8 @@ namespace API_Core_Project.Controllers
 
         [HttpPut("{id}")]
         [ActionName("PutDI")]
-        [Authorize(Policy = "AdminPolicy")]
-        async public Task<IActionResult> PutDI(int id, DoctorImconeModel di)
+/*        [Authorize(Policy = "AdminPolicy")]
+*/        async public Task<IActionResult> PutDI(int id, DoctorImconeModel di)
         {
             var response = await docImconeRepo.UpdateAsync(id, di);
             return Ok(response);
@@ -213,8 +215,8 @@ namespace API_Core_Project.Controllers
 
         [HttpGet]
         [ActionName("GetVisits")]
-        [Authorize(Policy = "AdminPolicy")]
-        //[Authorize(Roles = "Manager,Clerk,Operator")]
+/*        [Authorize(Policy = "AdminPolicy")]
+*/        //[Authorize(Roles = "Manager,Clerk,Operator")]
 
         async public Task<IActionResult> GetVisits()
         {
@@ -224,11 +226,31 @@ namespace API_Core_Project.Controllers
 
         [HttpGet("{id}")]
         [ActionName("GetVisit")]
-        [Authorize(Policy = "AdminPolicy")]
-
+/*        [Authorize(Policy = "AdminPolicy")]
+*/
         async public Task<IActionResult> GetVisit(int id)
         {
             var response = await visitRepo.GetAsync(id);
+            return Ok(response);
+        }
+
+        [HttpPost]
+        [ActionName("PostBill")]
+        //[Authorize(Policy = "DoctorPolicy")]
+        async public Task<IActionResult> PostBill(BillModel app)
+        {
+            var response = await billRepo.CreateAsync(app);
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [ActionName("GetBills")]
+        // [Authorize(Policy = "DoctorPolicy")]
+        //[Authorize(Roles = "Manager,Clerk,Operator")]
+
+        async public Task<IActionResult> GetBills()
+        {
+            var response = await billRepo.GetAsync();
             return Ok(response);
         }
     }

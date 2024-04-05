@@ -2,9 +2,8 @@
 
 namespace API_Core_Project.Models
 {
-    public class DoctorModel:EntityBase
+    public class DoctorModel : EntityBase
     {
-
         [Key]
         public int DoctorID { get; set; }
 
@@ -19,5 +18,12 @@ namespace API_Core_Project.Models
         [Required]
         [StringLength(100)]
         public string? Speciality { get; set; }
+
+        [Required]
+        [StringLength(100)]
+        public string? Email { get; set; }
+
+        [Required]
+        public int Salary { get; set; }
     }
 }

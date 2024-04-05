@@ -30,6 +30,7 @@ namespace API_Core_Project.Controllers
                 if (result)
                 {
                     securityResponse.Message = $"User {user.Email} is created sucecssfully";
+                    securityResponse.AppUser = user;
 
                 }
             }
@@ -53,6 +54,7 @@ namespace API_Core_Project.Controllers
                 if (securityResponse.IsLoggedIn)
                 {
                     securityResponse.Message = $"User {user.Email} is authenticated sucecssfully";
+                    securityResponse.LoginUser = user;
 
                 }
             }
@@ -75,6 +77,7 @@ namespace API_Core_Project.Controllers
                 if (result)
                 {
                     securityResponse.Message = $"Role {role.Name} is created sucecssfully";
+                    securityResponse.RoleInfo = role;
                 }
             }
             catch (Exception ex)
@@ -95,6 +98,7 @@ namespace API_Core_Project.Controllers
                 if (result)
                 {
                     securityResponse.Message = $"Role {userRole.RoleName} is assigned to User {userRole.Email} successfully";
+                    securityResponse.UserRole = userRole;
                 }
             }
             catch (Exception ex)

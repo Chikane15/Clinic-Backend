@@ -122,6 +122,8 @@ namespace API_Core_Project.Repository
                 }
 
                 rec.Medicine=rec.Medicine;
+                rec.DocId=rec.DocId;
+                rec.PatientId=rec.PatientId;
                 
 
                 await ctx.SaveChangesAsync();
