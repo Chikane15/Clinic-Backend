@@ -2,7 +2,7 @@
 
 namespace API_Core_Project.Models
 {
-    public class DoctorModel:EntityBase
+    public class DoctorModel : EntityBase
     {
         [Key]
         public int DoctorID { get; set; }

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace API_Core_Project.Migrations
 {
     /// <inheritdoc />
-    public partial class ClinicMigration : Migration
+    public partial class clinicmig : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -51,20 +51,6 @@ namespace API_Core_Project.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Prescriptions",
-                columns: table => new
-                {
-                    PriId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Medicine = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PatientId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Prescriptions", x => x.PriId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "DoctorIncomes",
                 columns: table => new
                 {
@@ -80,6 +66,27 @@ namespace API_Core_Project.Migrations
                         principalTable: "Doctors",
                         principalColumn: "DoctorID",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Prescriptions",
+                columns: table => new
+                {
+                    PriId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Medicine = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PatientId = table.Column<int>(type: "int", nullable: false),
+                    DocId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Prescriptions", x => x.PriId);
+                    table.ForeignKey(
+                        name: "FK_Prescriptions_Doctors_DocId",
+                        column: x => x.DocId,
+                        principalTable: "Doctors",
+                        principalColumn: "DoctorID",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -169,9 +176,7 @@ namespace API_Core_Project.Migrations
                     PId = table.Column<int>(type: "int", nullable: false),
                     DateofVisit = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DoctorId = table.Column<int>(type: "int", nullable: false),
-                    TimeSlot = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     BillId = table.Column<int>(type: "int", nullable: false),
-                    PriId = table.Column<int>(type: "int", nullable: false),
                     ReportID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -196,12 +201,6 @@ namespace API_Core_Project.Migrations
                         principalColumn: "PatientID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Visits_Prescriptions_PriId",
-                        column: x => x.PriId,
-                        principalTable: "Prescriptions",
-                        principalColumn: "PriId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
                         name: "FK_Visits_Reports_ReportID",
                         column: x => x.ReportID,
                         principalTable: "Reports",
@@ -223,6 +222,11 @@ namespace API_Core_Project.Migrations
                 name: "IX_Bills_PatientID",
                 table: "Bills",
                 column: "PatientID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Prescriptions_DocId",
+                table: "Prescriptions",
+                column: "DocId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reports_DId",
@@ -250,11 +254,6 @@ namespace API_Core_Project.Migrations
                 column: "PId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Visits_PriId",
-                table: "Visits",
-                column: "PriId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Visits_ReportID",
                 table: "Visits",
                 column: "ReportID");
@@ -270,13 +269,13 @@ namespace API_Core_Project.Migrations
                 name: "DoctorIncomes");
 
             migrationBuilder.DropTable(
+                name: "Prescriptions");
+
+            migrationBuilder.DropTable(
                 name: "Visits");
 
             migrationBuilder.DropTable(
                 name: "Bills");
-
-            migrationBuilder.DropTable(
-                name: "Prescriptions");
 
             migrationBuilder.DropTable(
                 name: "Reports");

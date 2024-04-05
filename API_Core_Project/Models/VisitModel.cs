@@ -15,11 +15,9 @@ namespace API_Core_Project.Models
 
         public int DoctorId { get; set; }
 
-        public string? TimeSlot { get; set; }
 
         public int BillId { get; set; }
 
-        public int PriId { get; set; }
 
         public int ReportID { get; set; }
     }

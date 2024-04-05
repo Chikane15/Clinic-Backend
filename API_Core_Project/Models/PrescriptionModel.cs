@@ -10,5 +10,7 @@ namespace API_Core_Project.Models
         public string? Medicine { get; set; }
 
         public int PatientId{ get; set; }
+
+        public int DocId { get; set; }
     }
 }

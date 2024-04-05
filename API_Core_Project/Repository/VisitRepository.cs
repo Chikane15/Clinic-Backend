@@ -122,12 +122,12 @@ namespace API_Core_Project.Repository
                 }
 
                rec.ReportID = entity.ReportID;
-            rec.PriId = entity.PriId;
+            
                 rec.PId = entity.PId;
                 rec.BillId = entity.BillId;
                 rec.DateofVisit = entity.DateofVisit;
                 rec.DoctorId = entity.DoctorId;
-                rec.TimeSlot = entity.TimeSlot;
+                
                 
 
                 await ctx.SaveChangesAsync();
